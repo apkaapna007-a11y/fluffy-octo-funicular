@@ -1,0 +1,222 @@
+Deep Research Agent - Project Structure
+=====================================
+
+deep-research-agent/
+│
+├── app/                                # Next.js App Router
+│   ├── api/                            
+│   │   └── orchestrate/
+│   │       └── route.ts                # Main API endpoint (POST/GET)
+│   │
+│   ├── components/                     # React components
+│   │   ├── ChatInput.tsx               # User input interface
+│   │   ├── StepCard.tsx                # Research step visualization
+│   │   ├── KnowledgeSidebar.tsx        # Knowledge memory panel
+│   │   └── ReportPreview.tsx           # Final report display & export
+│   │
+│   ├── globals.css                     # Global styles & animations
+│   ├── layout.tsx                      # Root layout with metadata
+│   └── page.tsx                        # Main application page
+│
+├── lib/                                # Core libraries
+│   ├── mcp/                            # MCP Orchestration modules
+│   │   ├── planner.ts                  # Plan generation logic
+│   │   ├── verifier.ts                 # Plan validation (deterministic + LLM)
+│   │   ├── executor.ts                 # Step execution engine
+│   │   ├── synthesizer.ts              # Report synthesis
+│   │   ├── policyEngine.ts             # Decision making
+│   │   └── promptBuilder.ts            # Prompt templates
+│   │
+│   ├── config.ts                       # Model routing & settings
+│   ├── llm.ts                          # OpenRouter integration
+│   ├── supabase.ts                     # Database client & schema
+│   └── types.ts                        # TypeScript type definitions
+│
+├── .env.local.example                  # Environment variables template
+├── .eslintrc.json                      # ESLint configuration
+├── .gitignore                          # Git ignore rules
+├── LICENSE                             # MIT License
+├── next.config.ts                      # Next.js configuration
+├── package.json                        # Dependencies & scripts
+├── postcss.config.mjs                  # PostCSS configuration
+├── tailwind.config.ts                  # Tailwind CSS configuration
+├── tsconfig.json                       # TypeScript configuration
+├── vercel.json                         # Vercel deployment config
+│
+├── README.md                           # Main documentation
+├── SETUP.md                            # Detailed setup guide
+├── QUICKSTART.md                       # 5-minute quick start
+├── PROJECT_SUMMARY.md                  # This comprehensive summary
+└── PROJECT_STRUCTURE.txt               # This file
+
+Key Files Explained
+===================
+
+CONFIGURATION FILES:
+-------------------
+- package.json          : Dependencies (Next.js, React, OpenAI, Supabase, etc.)
+- tsconfig.json         : TypeScript config (ES2018, strict mode)
+- tailwind.config.ts    : Custom colors, animations, typography plugin
+- next.config.ts        : Next.js settings (server actions, etc.)
+- vercel.json           : Deployment configuration for Vercel
+
+ORCHESTRATION CORE:
+------------------
+- lib/mcp/planner.ts       : Uses Claude 3.5 Sonnet to generate XML plans
+- lib/mcp/verifier.ts      : Validates tools, dependencies, circular refs
+- lib/mcp/executor.ts      : Topological sort + step execution
+- lib/mcp/synthesizer.ts   : Compiles final reports with GPT-4o
+- lib/mcp/policyEngine.ts  : Decides continue/replan/stop
+- lib/mcp/promptBuilder.ts : All LLM prompt templates
+
+INFRASTRUCTURE:
+--------------
+- lib/llm.ts        : OpenRouter client, model routing, streaming
+- lib/supabase.ts   : Database client, CRUD operations, SQL schema
+- lib/config.ts     : Model selection, timeouts, available tools
+- lib/types.ts      : TypeScript interfaces for all data structures
+
+API LAYER:
+---------
+- app/api/orchestrate/route.ts : 
+    * POST: Run research orchestration
+    * GET: Fetch session by ID
+    * Handles full workflow: plan → verify → execute → synthesize
+
+UI COMPONENTS:
+-------------
+- app/page.tsx                 : Main app page (welcome, loading, results)
+- app/components/ChatInput.tsx : Textarea with submit button
+- app/components/StepCard.tsx  : Collapsible step with status, sources, confidence
+- app/components/KnowledgeSidebar.tsx : Right panel showing findings
+- app/components/ReportPreview.tsx : Markdown report with copy/download
+
+STYLING:
+-------
+- app/globals.css    : Root styles, animations, markdown formatting
+- tailwind.config.ts : Custom theme, colors, keyframes
+
+DOCUMENTATION:
+-------------
+- README.md          : Overview, features, architecture, deployment
+- SETUP.md           : Step-by-step setup with troubleshooting
+- QUICKSTART.md      : Get running in 5 minutes
+- PROJECT_SUMMARY.md : Complete technical summary
+
+Technology Stack
+================
+
+Frontend:
+- Next.js 15 (App Router)
+- React 19
+- TypeScript 5.9
+- Tailwind CSS 4.x
+- Framer Motion 12.x
+
+Backend:
+- Next.js API Routes
+- OpenRouter (OpenAI client)
+- Supabase (PostgreSQL)
+
+AI Models:
+- Planner: Claude 3.5 Sonnet
+- Verifier: GPT-4o Mini
+- Executor: Mixtral 8x7B
+- Synthesizer: GPT-4o
+
+Deployment:
+- Vercel (recommended)
+- Edge runtime optional
+- Environment variables via Vercel UI
+
+Build Output
+============
+
+Route                    Type        Status
+-----------------------------------------
+/                        Static      ○ Prerendered
+/_not-found              Static      ○ Prerendered
+/api/orchestrate         Dynamic     ƒ Server-rendered
+
+Build Status: ✅ Successful
+TypeScript:   ✅ Compiled
+Production:   ✅ Ready
+
+Lines of Code (Approximate)
+===========================
+
+TypeScript/TSX:  ~2,500 lines
+CSS:            ~200 lines
+Configuration:  ~150 lines
+Documentation:  ~1,500 lines
+Total:          ~4,350 lines
+
+Key Features Implemented
+========================
+
+✅ Intelligent planning with Claude
+✅ Deterministic + LLM verification
+✅ Dependency-aware execution
+✅ Multi-model synthesis
+✅ Policy-driven orchestration
+✅ Supabase persistence
+✅ Real-time UI updates
+✅ Dark mode support
+✅ Markdown export
+✅ Source citations
+✅ Confidence scoring
+✅ Beast mode fallback
+✅ Error handling
+✅ Responsive design
+✅ Production build
+✅ Vercel deployment config
+✅ Comprehensive documentation
+
+Environment Variables Required
+==============================
+
+OPENROUTER_API_KEY               # From openrouter.ai
+OPENROUTER_API_BASE              # https://openrouter.ai/api/v1
+NEXT_PUBLIC_SUPABASE_URL         # From supabase.com project
+NEXT_PUBLIC_SUPABASE_ANON_KEY    # From supabase.com project
+SUPABASE_SERVICE_KEY             # From supabase.com project (secret!)
+
+Quick Start Commands
+====================
+
+Development:
+$ npm install
+$ cp .env.local.example .env.local
+# (add your API keys)
+$ npm run dev
+
+Production Build:
+$ npm run build
+$ npm start
+
+Deploy to Vercel:
+$ git init && git add . && git commit -m "Initial commit"
+$ vercel
+# (or connect via GitHub)
+
+Database Setup (Supabase SQL Editor):
+1. Copy SQL from lib/supabase.ts
+2. Run in Supabase SQL Editor
+3. Verify tables created
+
+Testing:
+- Open http://localhost:3000
+- Enter query: "Explain quantum computing"
+- Watch orchestration steps
+- View final report
+
+Support
+=======
+
+Documentation: See README.md, SETUP.md, QUICKSTART.md
+Issues:        GitHub Issues
+Questions:     GitHub Discussions
+
+Status: ✅ Production Ready
+Version: 1.0.0
+License: MIT
