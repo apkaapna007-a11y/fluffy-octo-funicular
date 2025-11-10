@@ -1,17 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ChatInput from './components/ChatInput';
 import StepCard from './components/StepCard';
 import KnowledgeSidebar from './components/KnowledgeSidebar';
 import ReportPreview from './components/ReportPreview';
+import SplashScreen from './components/SplashScreen';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import { OrchestrationResult } from '@/lib/types';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<OrchestrationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showSplash, setShowSplash] = useState(true);
+
+  // Check if this is the first visit or PWA launch
+  useEffect(() => {
+    const hasVisited = localStorage.getItem('hasVisited');
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches;
+    
+    if (hasVisited && !isPWA) {
+      setShowSplash(false);
+    } else {
+      localStorage.setItem('hasVisited', 'true');
+    }
+  }, []);
 
   const handleResearch = async (query: string) => {
     setIsLoading(true);
@@ -41,6 +56,11 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+
+  // Show splash screen on first load or PWA launch
+  if (showSplash) {
+    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+  }
 
   return (
     <div className="flex min-h-screen">
@@ -268,6 +288,9 @@ export default function Home() {
         knowledge={result?.knowledge || []}
         isVisible={!!result}
       />
+
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt />
     </div>
   );
 }
