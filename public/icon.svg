@@ -1,0 +1,42 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F8FAFC;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGradient)"/>
+  
+  <!-- Main search/research icon -->
+  <g transform="translate(128, 128)">
+    <!-- Magnifying glass circle -->
+    <circle cx="112" cy="112" r="80" stroke="url(#iconGradient)" stroke-width="16" fill="none"/>
+    
+    <!-- Magnifying glass handle -->
+    <line x1="179" y1="179" x2="224" y2="224" stroke="url(#iconGradient)" stroke-width="16" stroke-linecap="round"/>
+    
+    <!-- Document/report lines inside magnifying glass -->
+    <line x1="80" y1="96" x2="144" y2="96" stroke="url(#iconGradient)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="80" y1="112" x2="144" y2="112" stroke="url(#iconGradient)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="80" y1="128" x2="128" y2="128" stroke="url(#iconGradient)" stroke-width="6" stroke-linecap="round"/>
+    
+    <!-- AI brain circuit pattern -->
+    <g opacity="0.7">
+      <circle cx="96" cy="80" r="3" fill="url(#iconGradient)"/>
+      <circle cx="128" cy="80" r="3" fill="url(#iconGradient)"/>
+      <circle cx="96" cy="144" r="3" fill="url(#iconGradient)"/>
+      <circle cx="128" cy="144" r="3" fill="url(#iconGradient)"/>
+      <line x1="96" y1="80" x2="128" y2="80" stroke="url(#iconGradient)" stroke-width="1"/>
+      <line x1="96" y1="144" x2="128" y2="144" stroke="url(#iconGradient)" stroke-width="1"/>
+      <line x1="96" y1="80" x2="96" y2="144" stroke="url(#iconGradient)" stroke-width="1"/>
+      <line x1="128" y1="80" x2="128" y2="144" stroke="url(#iconGradient)" stroke-width="1"/>
+    </g>
+  </g>
+</svg>
